@@ -1,0 +1,62 @@
+{
+  "name": "share-extension-expo-plugin",
+  "version": "1.0.0",
+  "description": "Share Extension Expo Plugin",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "expo-module build",
+    "clean": "expo-module clean",
+    "lint": "expo-module lint",
+    "test": "expo-module test",
+    "prepare": "expo-module prepare",
+    "prepublishOnly": "expo-module prepublishOnly",
+    "expo-module": "expo-module"
+  },
+  "keywords": [
+    "react-native",
+    "expo",
+    "share",
+    "extension",
+    "ios"
+  ],
+  "repository": "https://github.com/BreckoEC/share-extension-expo-plugin.git",
+  "bugs": {
+    "url": "https://github.com/BreckoEC/share-extension-expo-plugin/issues"
+  },
+  "author": "Brecko <cunin.etienne@gmail.com> (https://github.com/BreckoEC)",
+  "license": "MIT",
+  "homepage": "https://github.com/BreckoEC/share-extension-expo-plugin#readme",
+  "dependencies": {
+    "xcode": "^3.0.1"
+  },
+  "devDependencies": {
+    "@expo/config-types": "^47.0.0",
+    "@types/react": "^18.0.25",
+    "@types/react-native": "^0.70.6",
+    "@typescript-eslint/eslint-plugin": "^5.48.0",
+    "@typescript-eslint/parser": "^5.48.0",
+    "eslint": "^8.31.0",
+    "eslint-config-universe": "^11.1.1",
+    "expo": "^47.0.7",
+    "expo-application": "~5.0.1",
+    "expo-constants": "~14.0.2",
+    "expo-device": "~5.0.0",
+    "expo-module-scripts": "^3.0.4",
+    "expo-modules-core": "^1.1.0",
+    "expo-updates": "~0.15.6",
+    "prettier": "^2.8.1",
+    "prettier-eslint": "^15.0.1",
+    "prettier-eslint-cli": "^7.1.0",
+    "typescript": "^4.7.4"
+  },
+  "peerDependencies": {
+    "expo": "*",
+    "expo-application": "*",
+    "expo-constants": "*",
+    "expo-device": "*",
+    "expo-updates": "*",
+    "react": "*",
+    "react-native": "*"
+  }
+}
