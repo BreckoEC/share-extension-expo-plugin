@@ -24,6 +24,7 @@ module.exports = {
     'max-len': [2, { code: 120 }],
     '@typescript-eslint/no-unused-vars': ['warn', { caughtErrors: 'none' }],
     '@typescript-eslint/ban-ts-comment': ['off'],
+    '@typescript-eslint/no-non-null-assertion': ['off'],
     'prettier/prettier': [
       'error',
       {
