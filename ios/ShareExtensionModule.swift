@@ -8,7 +8,7 @@ public class ShareExtensionNativeModule: Module {
     Name("ShareExtensionNative")
 
     OnCreate {
-      group = (Bundle.main.object(forInfoDictionaryKey: "ShareExtensionAppGroup") as? String)!
+      group = (Bundle.main.object(forInfoDictionaryKey: "ShareExtensionKeychainAccessGroup") as? String)!
     }
 
     Function("getKeychainValue") { (key: String) -> String in

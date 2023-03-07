@@ -1,4 +1,5 @@
 import { ConfigPlugin, withEntitlementsPlist, withXcodeProject, withInfoPlist } from '@expo/config-plugins'
+import { ExpoConfig } from '@expo/config-types'
 import assert from 'assert'
 import * as jetpack from 'fs-jetpack'
 import path from 'path'
@@ -28,6 +29,10 @@ const REGEX_BUNDLE_VERSION = /{{CFBundleVersion}}/gm
 const REGEX_EXTENSION_ACTIVATION_RULE = /{{NSExtensionActivationRule}}/gm
 const REGEX_EXTENSION_MAIN_STORYBOARD = /{{NSExtensionMainStoryboard}}/gm
 
+function getKeychainAccessGroup(config: ExpoConfig): string {
+  return `$(AppIdentifierPrefix)${config.ios!.bundleIdentifier!}`
+}
+
 const withShareExtension: ConfigPlugin<ShareExtensionPluginProps> = (config, pluginProps) => {
   assert(config.version, 'Missing {expo.version} in app config.')
   assert(config.ios?.bundleIdentifier, 'Missing {expo.ios.bundleIdentifier} in app config.')
@@ -38,43 +43,51 @@ const withShareExtension: ConfigPlugin<ShareExtensionPluginProps> = (config, plu
   }
 
   config = withKeychainSharing(config, pluginProps)
+  config = withKeychainAccessGroup(config, pluginProps)
   config = withShareExtensionTarget(config, pluginProps)
   config = withEasManagedCredentials(config, pluginProps)
   return config
 }
 
 const withMessageIntent: ConfigPlugin<ShareExtensionPluginProps> = (config) => {
-  return withInfoPlist(config, (config) => {
-    if (!Array.isArray(config.modResults.NSUserActivityTypes)) {
-      config.modResults.NSUserActivityTypes = []
+  return withInfoPlist(config, (props) => {
+    if (!Array.isArray(props.modResults.NSUserActivityTypes)) {
+      props.modResults.NSUserActivityTypes = []
     }
 
-    if (!config.modResults.NSUserActivityTypes.includes('INSendMessageIntent')) {
-      config.modResults.NSUserActivityTypes.push('INSendMessageIntent')
+    if (!props.modResults.NSUserActivityTypes.includes('INSendMessageIntent')) {
+      props.modResults.NSUserActivityTypes.push('INSendMessageIntent')
     }
 
-    return config
+    return props
+  })
+}
+
+const withKeychainAccessGroup: ConfigPlugin<ShareExtensionPluginProps> = (config) => {
+  return withInfoPlist(config, (props) => {
+    props.modResults.ShareExtensionKeychainAccessGroup = getKeychainAccessGroup(config)
+    return props
   })
 }
 
 const withKeychainSharing: ConfigPlugin<ShareExtensionPluginProps> = (config) => {
-  return withEntitlementsPlist(config, (config) => {
+  return withEntitlementsPlist(config, (props) => {
     const KEYCHAIN_ACCESS_GROUP = 'keychain-access-groups'
 
-    if (!Array.isArray(config.modResults[KEYCHAIN_ACCESS_GROUP])) {
-      config.modResults[KEYCHAIN_ACCESS_GROUP] = []
+    if (!Array.isArray(props.modResults[KEYCHAIN_ACCESS_GROUP])) {
+      props.modResults[KEYCHAIN_ACCESS_GROUP] = []
     }
 
-    const modResultsArray = config.modResults[KEYCHAIN_ACCESS_GROUP] as any[]
+    const modResultsArray = props.modResults[KEYCHAIN_ACCESS_GROUP] as any[]
 
-    const entitlement = `$(AppIdentifierPrefix)${config.ios!.bundleIdentifier}`
+    const entitlement = getKeychainAccessGroup(config)
 
     if (modResultsArray.indexOf(entitlement) !== -1) {
-      return config
+      return props
     }
 
     modResultsArray.push(entitlement)
-    return config
+    return props
   })
 }
 
@@ -236,7 +249,7 @@ const withEasManagedCredentials: ConfigPlugin<ShareExtensionPluginProps> = (conf
                 targetName: EXTENSION_TARGET_NAME,
                 bundleIdentifier: `${config.ios!.bundleIdentifier!}.${EXTENSION_TARGET_NAME}`,
                 entitlements: {
-                  'keychain-access-groups': [`$(AppIdentifierPrefix)${config.ios!.bundleIdentifier!}`],
+                  'keychain-access-groups': [getKeychainAccessGroup(config)],
                 },
               },
             ],
