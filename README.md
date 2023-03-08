@@ -60,7 +60,10 @@ Open your `app.config.json` or `app.json` and configure the following
 
 ### Required config properties
 
-Make sure to provide `version`, `ios.bundleIdentifier` and `ios.buildNumber` in your `app.config.js` or `app.json` for the plugin to work. Otherwise, you should have an error on build.
+Make sure to provide `version`, `ios.bundleIdentifier` and `ios.buildNumber` in your `app.config.js` or `app.json` for the plugin to work. Otherwise, you will have an error on build.
+
+> This plugin is, for now, only available to **iOS 15** and later.<br />
+> iOS 15 has the same support matrix as **iOS 13** so if you want to upgrade your project to **iOS 15**, you can use the [expo-build-properties](https://docs.expo.dev/versions/latest/sdk/build-properties/) to do it. 
 
 ```js
 {
