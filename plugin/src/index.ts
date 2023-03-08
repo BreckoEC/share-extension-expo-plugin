@@ -150,7 +150,7 @@ const withShareExtensionTarget: ConfigPlugin<ShareExtensionPluginProps> = (confi
     jetpack.write(entitlementsPath, entitlementsFile)
 
     // Fix missing data in info plist
-    const infoPlistPath = `${destination}/${ENTITLEMENTS_FILENAME}`
+    const infoPlistPath = `${destination}/${INFO_PLIST_FILENAME}`
     let infoPlistFile = jetpack.read(infoPlistPath)!
     infoPlistFile = infoPlistFile.replace(REGEX_BUNDLE_SHORT_VERSION, bundleShortVersion)
     infoPlistFile = infoPlistFile.replace(REGEX_BUNDLE_VERSION, bundleVersion)
