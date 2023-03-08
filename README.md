@@ -162,8 +162,7 @@ function example() {
 
 ## 👀 Example
 
-TODO
-_(I am currently doing another repo to give an example of how to use this... WIP)_
+You can find an example expo app that uses this plugin here: [share-extension-expo-example](https://github.com/BreckoEC/share-extension-expo-example)
 
 ## 🍰 Contributing
 
