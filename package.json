@@ -28,7 +28,8 @@
   "license": "MIT",
   "homepage": "https://github.com/BreckoEC/share-extension-expo-plugin#readme",
   "dependencies": {
-    "xcode": "^3.0.1"
+    "xcode": "^3.0.1",
+    "fs-jetpack": "^5.1.0"
   },
   "devDependencies": {
     "@expo/config-types": "^47.0.0",
@@ -45,7 +46,6 @@
     "expo-module-scripts": "^3.0.4",
     "expo-modules-core": "^1.1.0",
     "expo-updates": "~0.15.6",
-    "fs-jetpack": "^5.1.0",
     "prettier": "^2.8.1",
     "prettier-eslint": "^15.0.1",
     "prettier-eslint-cli": "^7.1.0",

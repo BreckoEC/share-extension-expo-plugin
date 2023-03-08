@@ -98,6 +98,7 @@ const withShareExtensionTarget: ConfigPlugin<ShareExtensionPluginProps> = (confi
       modulesPath = '../' + modulesPath
     }
     const source = `${modulesPath}/${PLUGIN_PATH}/plugin/assets/ios`
+    const sourceExtension = `${modulesPath}/../${pluginProps.extensionPath}`
     const destination = `${config.modRequest.platformProjectRoot}/${EXTENSION_TARGET_NAME}`
     const xcodeProject = config.modResults
 
@@ -128,8 +129,8 @@ const withShareExtensionTarget: ConfigPlugin<ShareExtensionPluginProps> = (confi
         ).@count == 1`
     }
 
-    const sourceFiles = jetpack.find(pluginProps.extensionPath, { matching: '*.swift' })
-    const resourceFiles = jetpack.find(pluginProps.extensionPath, { matching: '*.storyboard' })
+    const sourceFiles = jetpack.find(sourceExtension, { matching: '*.swift' })
+    const resourceFiles = jetpack.find(sourceExtension, { matching: '*.storyboard' })
 
     const allFiles = [
       `${source}/${ENTITLEMENTS_FILENAME}`,
