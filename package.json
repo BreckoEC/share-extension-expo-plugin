@@ -1,6 +1,6 @@
 {
   "name": "share-extension-expo-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Share Extension Expo Plugin",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -28,8 +28,8 @@
   "license": "MIT",
   "homepage": "https://github.com/BreckoEC/share-extension-expo-plugin#readme",
   "dependencies": {
-    "xcode": "^3.0.1",
-    "fs-jetpack": "^5.1.0"
+    "fs-jetpack": "^5.1.0",
+    "xcode": "^3.0.1"
   },
   "devDependencies": {
     "@expo/config-types": "^47.0.0",
