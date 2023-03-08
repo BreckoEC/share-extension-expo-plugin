@@ -21,7 +21,6 @@ const ENTITLEMENTS_FILENAME = `${EXTENSION_TARGET_NAME}.entitlements`
 const INFO_PLIST_FILENAME = `${EXTENSION_TARGET_NAME}-Info.plist`
 
 const KEYCHAIN_HELPER_FILENAME = 'KeychainHelper.swift'
-const KEYCHAIN_HELPER_PATH = `../../ios/${KEYCHAIN_HELPER_FILENAME}`
 
 const DEFAULT_DEPLOYMENT_TARGET = '15.0'
 const DEFAULT_SWIFT_VERSION = '5.7'
@@ -139,7 +138,7 @@ const withShareExtensionTarget: ConfigPlugin<ShareExtensionPluginProps> = (confi
     const allFiles = [
       `${source}/${ENTITLEMENTS_FILENAME}`,
       `${source}/${INFO_PLIST_FILENAME}`,
-      KEYCHAIN_HELPER_PATH,
+      `${modulesPath}/${PLUGIN_PATH}/ios/${KEYCHAIN_HELPER_FILENAME}`,
       ...sourceFiles,
       ...resourceFiles,
     ]
