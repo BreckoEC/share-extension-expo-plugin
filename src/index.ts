@@ -1,7 +1,7 @@
 import ShareExtensionNativeModule from './ShareExtensionNativeModule'
 import { RecordUser } from './types'
 
-export function getKeychainValue(key: string): string {
+export function getKeychainValue(key: string): string | undefined {
   return ShareExtensionNativeModule.getKeychainValue(key)
 }
 

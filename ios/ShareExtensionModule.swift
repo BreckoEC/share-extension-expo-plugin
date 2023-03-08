@@ -11,7 +11,7 @@ public class ShareExtensionNativeModule: Module {
       group = (Bundle.main.object(forInfoDictionaryKey: "ShareExtensionKeychainAccessGroup") as? String)!
     }
 
-    Function("getKeychainValue") { (key: String) -> String in
+    Function("getKeychainValue") { (key: String) -> String? in
       return KeychainHelper.getValue(forKey: key, inGroup: group!)
     }
 
