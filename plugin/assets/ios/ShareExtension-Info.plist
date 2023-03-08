@@ -32,5 +32,7 @@
         <key>NSExtensionPointIdentifier</key>
         <string>com.apple.share-services</string>
     </dict>
+    <key>ShareExtensionKeychainAccessGroup</key>
+    <string>{{ShareExtensionKeychainAccessGroup}}</string>
 </dict>
 </plist>

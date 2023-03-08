@@ -2,25 +2,19 @@ import ExpoModulesCore
 import Foundation
 
 public class ShareExtensionNativeModule: Module {
-  var group: String?
-
   public func definition() -> ModuleDefinition {
     Name("ShareExtensionNative")
 
-    OnCreate {
-      group = (Bundle.main.object(forInfoDictionaryKey: "ShareExtensionKeychainAccessGroup") as? String)!
-    }
-
     Function("getKeychainValue") { (key: String) -> String? in
-      return KeychainHelper.getValue(forKey: key, inGroup: group!)
+      return KeychainHelper.getValue(forKey: key)
     }
 
     Function("setKeychainValue") { (key: String, value: String) -> Void in
-      KeychainHelper.setValue(value, forKey: key, inGroup: group!)
+      KeychainHelper.setValue(value, forKey: key)
     }
 
     Function("removeKeychainValue") { (key: String) -> Void in
-      KeychainHelper.removeValue(forKey: key, inGroup: group!)
+      KeychainHelper.removeValue(forKey: key)
     }
 
     Function("sendMessageIntent") { (recipients: [User], sender: User, conversationId: String, groupName: String?, groupPicture: String?) -> Void in

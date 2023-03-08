@@ -1,7 +1,12 @@
 import Foundation
 
+/**
+ This class is used to share data with the main app
+ */
 struct KeychainHelper {
-  static func getValue(forKey key: String, inGroup group: String) -> String? {
+  private static let group = (Bundle.main.object(forInfoDictionaryKey: "ShareExtensionKeychainAccessGroup") as? String)!
+
+  static func getValue(forKey key: String) -> String? {
     let query: [String: Any] = [
       kSecClass as String: kSecClassGenericPassword,
       kSecAttrAccount as String: key,
@@ -25,8 +30,8 @@ struct KeychainHelper {
     return result
   }
 
-  static func setValue(_ value: String, forKey key: String, inGroup group: String) {
-    removeValue(forKey: key, inGroup: group)
+  static func setValue(_ value: String, forKey key: String) {
+    removeValue(forKey: key)
 
     let valueData = value.data(using: .utf8)
     let query: [String: Any] = [
@@ -40,7 +45,7 @@ struct KeychainHelper {
     SecItemAdd(query as CFDictionary, nil)
   }
 
-  static func removeValue(forKey key: String, inGroup group: String) {
+  static func removeValue(forKey key: String) {
     let query: [String: Any] = [
       kSecClass as String: kSecClassGenericPassword,
       kSecAttrAccount as String: key,

@@ -20,6 +20,9 @@ const EXTENSION_TARGET_NAME = 'ShareExtension'
 const ENTITLEMENTS_FILENAME = `${EXTENSION_TARGET_NAME}.entitlements`
 const INFO_PLIST_FILENAME = `${EXTENSION_TARGET_NAME}-Info.plist`
 
+const KEYCHAIN_HELPER_FILENAME = 'KeychainHelper.swift'
+const KEYCHAIN_HELPER_PATH = `../../ios/${KEYCHAIN_HELPER_FILENAME}`
+
 const DEFAULT_DEPLOYMENT_TARGET = '15.0'
 const DEFAULT_SWIFT_VERSION = '5.7'
 
@@ -28,6 +31,7 @@ const REGEX_BUNDLE_SHORT_VERSION = /{{CFBundleShortVersionString}}/gm
 const REGEX_BUNDLE_VERSION = /{{CFBundleVersion}}/gm
 const REGEX_EXTENSION_ACTIVATION_RULE = /{{NSExtensionActivationRule}}/gm
 const REGEX_EXTENSION_MAIN_STORYBOARD = /{{NSExtensionMainStoryboard}}/gm
+const REGEX_SHARE_EXTENTION_KEYCHAIN_ACCESS_GROUP = /{{ShareExtensionKeychainAccessGroup}}/gm
 
 function getKeychainAccessGroup(config: ExpoConfig): string {
   return `$(AppIdentifierPrefix)${config.ios!.bundleIdentifier!}`
@@ -135,6 +139,7 @@ const withShareExtensionTarget: ConfigPlugin<ShareExtensionPluginProps> = (confi
     const allFiles = [
       `${source}/${ENTITLEMENTS_FILENAME}`,
       `${source}/${INFO_PLIST_FILENAME}`,
+      KEYCHAIN_HELPER_PATH,
       ...sourceFiles,
       ...resourceFiles,
     ]
@@ -156,6 +161,7 @@ const withShareExtensionTarget: ConfigPlugin<ShareExtensionPluginProps> = (confi
     infoPlistFile = infoPlistFile.replace(REGEX_BUNDLE_VERSION, bundleVersion)
     infoPlistFile = infoPlistFile.replace(REGEX_EXTENSION_MAIN_STORYBOARD, mainStoryboardName)
     infoPlistFile = infoPlistFile.replace(REGEX_EXTENSION_ACTIVATION_RULE, activationRule)
+    infoPlistFile = infoPlistFile.replace(REGEX_SHARE_EXTENTION_KEYCHAIN_ACCESS_GROUP, getKeychainAccessGroup(config))
     jetpack.write(infoPlistPath, infoPlistFile)
 
     // Add assets in an xcode 'PBXGroup' (xcode folders)
@@ -194,7 +200,7 @@ const withShareExtensionTarget: ConfigPlugin<ShareExtensionPluginProps> = (confi
 
     // Add build phases to the new target
     xcodeProject.addBuildPhase(
-      sourceFiles.map((x) => path.basename(x)),
+      [KEYCHAIN_HELPER_FILENAME, ...sourceFiles.map((x) => path.basename(x))],
       'PBXSourcesBuildPhase',
       'Sources',
       target.uuid
