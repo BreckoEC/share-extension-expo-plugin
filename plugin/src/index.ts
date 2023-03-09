@@ -128,7 +128,7 @@ const withShareExtensionTarget: ConfigPlugin<ShareExtensionPluginProps> = (confi
             (${rules
               .map((x) => `ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.${x}"`)
               .join(' || ')})
-          ).@count == 1 \
+          ).@count >= 1 \
         ).@count == 1`
     }
 
