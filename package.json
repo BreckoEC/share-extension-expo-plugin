@@ -1,6 +1,6 @@
 {
   "name": "share-extension-expo-plugin",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Share Extension Expo Plugin",
   "main": "build/index.js",
   "types": "build/index.d.ts",
